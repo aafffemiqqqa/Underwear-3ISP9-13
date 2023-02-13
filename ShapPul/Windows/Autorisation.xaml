@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ShapPul.Windows"
         mc:Ignorable="d"
         Title="Autorisation" Height="700" Width="500" Background="#FFE3C4C4">
+   
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -51,6 +52,7 @@
                 FontSize="24"
                 Margin="10 40 0 20"
                 FontFamily="SimSun-ExtB" Height="25"/>
+            
             <TextBox x:Name="TbLog"
                 TextWrapping="Wrap"
                 Text=""
@@ -76,7 +78,7 @@
                     Content="Enter"
                     Height="45" 
                     Width="152" 
-                    Margin="10 60 0 20"
+                    Margin="10 150 0 20"
                     RenderTransformOrigin="0.515,1.675"
                     FontFamily="SimSun-ExtB" 
                     Background="Aquamarine" FontSize="18" Click="Btn_Enter_Click"             

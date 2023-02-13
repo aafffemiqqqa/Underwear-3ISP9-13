@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShapPul.Windows"
         mc:Ignorable="d"
-        Title="Check" Height="650" Width="500">
+        Title="Check" 
+        Height="750"
+        Width="500">
+
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -64,9 +67,7 @@
                 Margin="10 30 0 20"
                 FontFamily="SimSun-ExtB" Height="25"/>
 
-            <TextBox x:Name="TbPsw"
-                TextWrapping="Wrap"
-                Text=""
+            <PasswordBox x:Name="TbPsw"
                 Width="220"
                 Margin="0 0 0 0"
                 Grid.Row="1" Height="18"/>
@@ -97,14 +98,25 @@
                 Width="220"
                 Height="19"/>
 
+            <TextBlock
+                Text="Role"
+                HorizontalAlignment="Center"
+                FontSize="24"
+                Margin="10 30 0 20"
+                FontFamily="SimSun-ExtB" Height="24"/>
+            
+            <ComboBox x:Name="CmbRole"
+                      Width="220"
+                      Height="21"/>
+            
+
             <Button Content="Register"
                     Height="45" 
                     Width="152" 
                     Margin="10 30 0 20"
                     RenderTransformOrigin="0.515,1.675"
-                    FontFamily="SimSun-ExtB" 
-                    
-                    Background="Aquamarine" FontSize="18"             
+                    FontFamily="SimSun-ExtB"         
+                    Background="Aquamarine" FontSize="18" Click="Button_Click"             
             />
         </StackPanel>
     </Grid>

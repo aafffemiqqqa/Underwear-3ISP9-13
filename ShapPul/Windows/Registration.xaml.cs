@@ -11,6 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ShapPul.ClassHelper;
+using ShapPul.Windows;
+using ShapPul.DB;
 
 namespace ShapPul.Windows
 {
@@ -22,6 +25,53 @@ namespace ShapPul.Windows
         public Check()
         {
             InitializeComponent();
+
+            CmbRole.ItemsSource = EFClass.Context.Role.ToList();
+            CmbRole.DisplayMemberPath = "Name";
+            CmbRole.SelectedIndex = 0;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TbLog.Text))
+            {
+                MessageBox.Show("Логин не может быть пустым или состоять из пробелов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(TbLN.Text))
+            {
+                MessageBox.Show("Имя не может быть пустым или состоять из пробелов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(TbFN.Text))
+            {
+                MessageBox.Show("Фамилия не может быть пустой или состоять из пробелов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(TbPsw.Password))
+            {
+                MessageBox.Show("Пароль не может быть пустым или состоять из пробелов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            EFClass.Context.Account.Add(new Account()
+            {
+                Login = TbLog.Text,
+                Password = TbPsw.Password,
+                LastName = TbLN.Text,
+                FirstName = TbFN.Text,
+                IdRole = (CmbRole.SelectedItem as Role).IdRole
+            });
+
+            EFClass.Context.SaveChanges();
+
+            MessageBox.Show("ОК");
+
         }
     }
+
+    
 }
