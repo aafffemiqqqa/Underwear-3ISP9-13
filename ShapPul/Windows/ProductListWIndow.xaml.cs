@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ShapPul.ClassHelper;
+using ShapPul.Windows;
+using ShapPul.DB;
 
 namespace ShapPul.Windows
 {
@@ -33,6 +35,30 @@ namespace ShapPul.Windows
 
             lvProduct.ItemsSource = products;
         }
+
+        private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            AddEditProductWindow addEditProductWindow = new AddEditProductWindow();
+            addEditProductWindow.ShowDialog();
+
+            GetListProduct();
+        }
+
+        private void BtnMore_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button == null)
+            {
+                return;
+            }
+
+            DB.Product selectedProduct = button.DataContext as DB.Product;
+
+            AddEditProductWindow addEditProductWindow = new AddEditProductWindow (selectedProduct);
+            addEditProductWindow.ShowDialog();
+
+            GetListProduct();
+
+        }
     }
 }
-////

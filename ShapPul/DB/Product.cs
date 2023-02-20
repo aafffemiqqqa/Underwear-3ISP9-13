@@ -25,6 +25,7 @@ namespace ShapPul.DB
         public string Name { get; set; }
         public decimal Cost { get; set; }
         public int IdModel { get; set; }
+        public byte[] Image { get; set; }
     
         public virtual Model Model { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
