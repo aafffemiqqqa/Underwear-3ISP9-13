@@ -32,9 +32,7 @@ namespace ShapPul.DB
         public virtual DbSet<Color> Color { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Model> Model { get; set; }
-        public virtual DbSet<Options> Options { get; set; }
         public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<Position> Position { get; set; }
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<ProductOrder> ProductOrder { get; set; }
         public virtual DbSet<Role> Role { get; set; }

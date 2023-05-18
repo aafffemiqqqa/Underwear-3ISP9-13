@@ -17,7 +17,6 @@ namespace ShapPul.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.Options = new HashSet<Options>();
             this.ProductOrder = new HashSet<ProductOrder>();
         }
     
@@ -26,10 +25,12 @@ namespace ShapPul.DB
         public decimal Cost { get; set; }
         public int IdModel { get; set; }
         public byte[] Image { get; set; }
+        public Nullable<int> IdColor { get; set; }
+        public Nullable<int> IdSize { get; set; }
     
+        public virtual Color Color { get; set; }
         public virtual Model Model { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Options> Options { get; set; }
+        public virtual Size Size { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductOrder> ProductOrder { get; set; }
     }

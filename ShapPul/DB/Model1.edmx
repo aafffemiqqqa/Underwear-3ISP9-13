@@ -13,8 +13,6 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IdRole" Type="int" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Client">
           <Key>
@@ -28,7 +26,7 @@
           <Key>
             <PropertyRef Name="IdColor" />
           </Key>
-          <Property Name="IdColor" Type="int" Nullable="false" />
+          <Property Name="IdColor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
@@ -36,25 +34,20 @@
             <PropertyRef Name="IdEmployee" />
           </Key>
           <Property Name="IdEmployee" Type="int" Nullable="false" />
-          <Property Name="IdPosition" Type="int" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FirstName" Type="int" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="100" />
+          <Property Name="IdRole" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="IdAccount" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Model">
           <Key>
             <PropertyRef Name="IdModel" />
           </Key>
-          <Property Name="IdModel" Type="int" Nullable="false" />
+          <Property Name="IdModel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Options">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="IdColor" Type="int" Nullable="false" />
-          <Property Name="IdSize" Type="int" Nullable="false" />
-          <Property Name="IdModel" Type="int" Nullable="false" />
-          <Property Name="IdProduct" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -65,22 +58,17 @@
           <Property Name="IdEmployee" Type="int" Nullable="false" />
           <Property Name="IdClient" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Position">
-          <Key>
-            <PropertyRef Name="IdPosition" />
-          </Key>
-          <Property Name="IdPosition" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="IdProduct" />
           </Key>
-          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="IdProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="55" Nullable="false" />
           <Property Name="Cost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="IdModel" Type="int" Nullable="false" />
           <Property Name="Image" Type="varbinary(max)" />
+          <Property Name="IdColor" Type="int" />
+          <Property Name="IdSize" Type="int" />
         </EntityType>
         <EntityType Name="ProductOrder">
           <Key>
@@ -102,7 +90,7 @@
           <Key>
             <PropertyRef Name="IdSize" />
           </Key>
-          <Property Name="IdSize" Type="int" Nullable="false" />
+          <Property Name="IdSize" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -147,55 +135,7 @@
               <PropertyRef Name="IdAccount" />
             </Principal>
             <Dependent Role="Employee">
-              <PropertyRef Name="IdAccount" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Position">
-          <End Role="Position" Type="Self.Position" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Position">
-              <PropertyRef Name="IdPosition" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="IdPosition" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Options_Color">
-          <End Role="Color" Type="Self.Color" Multiplicity="1" />
-          <End Role="Options" Type="Self.Options" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Color">
-              <PropertyRef Name="IdColor" />
-            </Principal>
-            <Dependent Role="Options">
-              <PropertyRef Name="IdColor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Options_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Options" Type="Self.Options" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="IdProduct" />
-            </Principal>
-            <Dependent Role="Options">
-              <PropertyRef Name="IdProduct" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Options_Size">
-          <End Role="Size" Type="Self.Size" Multiplicity="1" />
-          <End Role="Options" Type="Self.Options" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Size">
-              <PropertyRef Name="IdSize" />
-            </Principal>
-            <Dependent Role="Options">
-              <PropertyRef Name="IdSize" />
+              <PropertyRef Name="FirstName" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -223,6 +163,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Product_Color">
+          <End Role="Color" Type="Self.Color" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="IdColor" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdColor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Product_Model">
           <End Role="Model" Type="Self.Model" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -232,6 +184,18 @@
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="IdModel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Size">
+          <End Role="Size" Type="Self.Size" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Size">
+              <PropertyRef Name="IdSize" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdSize" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -296,9 +260,7 @@
           <EntitySet Name="Color" EntityType="Self.Color" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Model" EntityType="Self.Model" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Options" EntityType="Self.Options" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductOrder" EntityType="Self.ProductOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -316,22 +278,6 @@
             <End Role="Account" EntitySet="Account" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK_Employee_Position" Association="Self.FK_Employee_Position">
-            <End Role="Position" EntitySet="Position" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Options_Color" Association="Self.FK_Options_Color">
-            <End Role="Color" EntitySet="Color" />
-            <End Role="Options" EntitySet="Options" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Options_Product" Association="Self.FK_Options_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Options" EntitySet="Options" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Options_Size" Association="Self.FK_Options_Size">
-            <End Role="Size" EntitySet="Size" />
-            <End Role="Options" EntitySet="Options" />
-          </AssociationSet>
           <AssociationSet Name="FK_Order_Client" Association="Self.FK_Order_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="Order" EntitySet="Order" />
@@ -340,8 +286,16 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
+          <AssociationSet Name="FK_Product_Color" Association="Self.FK_Product_Color">
+            <End Role="Color" EntitySet="Color" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
           <AssociationSet Name="FK_Product_Model" Association="Self.FK_Product_Model">
             <End Role="Model" EntitySet="Model" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Size" Association="Self.FK_Product_Size">
+            <End Role="Size" EntitySet="Size" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductOrder_Order" Association="Self.FK_ProductOrder_Order">
@@ -393,9 +347,7 @@
           <EntitySet Name="Color" EntityType="Model.Color" />
           <EntitySet Name="Employee" EntityType="Model.Employee" />
           <EntitySet Name="Model" EntityType="Model.Model" />
-          <EntitySet Name="Options" EntityType="Model.Options" />
           <EntitySet Name="Order" EntityType="Model.Order" />
-          <EntitySet Name="Position" EntityType="Model.Position" />
           <EntitySet Name="Product" EntityType="Model.Product" />
           <EntitySet Name="ProductOrder" EntityType="Model.ProductOrder" />
           <EntitySet Name="Role" EntityType="Model.Role" />
@@ -417,13 +369,9 @@
             <End Role="Client" EntitySet="Client" />
             <End Role="Order" EntitySet="Order" />
           </AssociationSet>
-          <AssociationSet Name="FK_Options_Color" Association="Model.FK_Options_Color">
+          <AssociationSet Name="FK_Product_Color" Association="Model.FK_Product_Color">
             <End Role="Color" EntitySet="Color" />
-            <End Role="Options" EntitySet="Options" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Position" Association="Model.FK_Employee_Position">
-            <End Role="Position" EntitySet="Position" />
-            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK_Order_Employee1" Association="Model.FK_Order_Employee1">
             <End Role="Employee" EntitySet="Employee" />
@@ -433,17 +381,13 @@
             <End Role="Model" EntitySet="Model" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
-          <AssociationSet Name="FK_Options_Product" Association="Model.FK_Options_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Options" EntitySet="Options" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Options_Size" Association="Model.FK_Options_Size">
-            <End Role="Size" EntitySet="Size" />
-            <End Role="Options" EntitySet="Options" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductOrder_Order" Association="Model.FK_ProductOrder_Order">
             <End Role="Order" EntitySet="Order" />
             <End Role="ProductOrder" EntitySet="ProductOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Size" Association="Model.FK_Product_Size">
+            <End Role="Size" EntitySet="Size" />
+            <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK_ProductOrder_Product" Association="Model.FK_ProductOrder_Product">
             <End Role="Product" EntitySet="Product" />
@@ -469,8 +413,6 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IdRole" Type="Int32" Nullable="false" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Role" Relationship="Model.FK_Account_Role" FromRole="Account" ToRole="Role" />
           <NavigationProperty Name="Client" Relationship="Model.FK_Client_Account" FromRole="Account" ToRole="Client" />
           <NavigationProperty Name="Employee" Relationship="Model.FK_Employee_Account" FromRole="Account" ToRole="Employee" />
@@ -489,41 +431,32 @@
           <Key>
             <PropertyRef Name="IdColor" />
           </Key>
-          <Property Name="IdColor" Type="Int32" Nullable="false" />
+          <Property Name="IdColor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Options" Relationship="Model.FK_Options_Color" FromRole="Color" ToRole="Options" />
+          <NavigationProperty Name="Product" Relationship="Model.FK_Product_Color" FromRole="Color" ToRole="Product" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="IdEmployee" />
           </Key>
           <Property Name="IdEmployee" Type="Int32" Nullable="false" />
-          <Property Name="IdPosition" Type="Int32" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="Int32" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
           <Property Name="IdAccount" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Account" Relationship="Model.FK_Employee_Account" FromRole="Employee" ToRole="Account" />
-          <NavigationProperty Name="Position" Relationship="Model.FK_Employee_Position" FromRole="Employee" ToRole="Position" />
           <NavigationProperty Name="Order" Relationship="Model.FK_Order_Employee1" FromRole="Employee" ToRole="Order" />
         </EntityType>
         <EntityType Name="Model">
           <Key>
             <PropertyRef Name="IdModel" />
           </Key>
-          <Property Name="IdModel" Type="Int32" Nullable="false" />
+          <Property Name="IdModel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Product" Relationship="Model.FK_Product_Model" FromRole="Model" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="Options">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="IdColor" Type="Int32" Nullable="false" />
-          <Property Name="IdSize" Type="Int32" Nullable="false" />
-          <Property Name="IdModel" Type="Int32" Nullable="false" />
-          <Property Name="IdProduct" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Color" Relationship="Model.FK_Options_Color" FromRole="Options" ToRole="Color" />
-          <NavigationProperty Name="Product" Relationship="Model.FK_Options_Product" FromRole="Options" ToRole="Product" />
-          <NavigationProperty Name="Size" Relationship="Model.FK_Options_Size" FromRole="Options" ToRole="Size" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -537,25 +470,20 @@
           <NavigationProperty Name="Employee" Relationship="Model.FK_Order_Employee1" FromRole="Order" ToRole="Employee" />
           <NavigationProperty Name="ProductOrder" Relationship="Model.FK_ProductOrder_Order" FromRole="Order" ToRole="ProductOrder" />
         </EntityType>
-        <EntityType Name="Position">
-          <Key>
-            <PropertyRef Name="IdPosition" />
-          </Key>
-          <Property Name="IdPosition" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Employee" Relationship="Model.FK_Employee_Position" FromRole="Position" ToRole="Employee" />
-        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="IdProduct" />
           </Key>
-          <Property Name="IdProduct" Type="Int32" Nullable="false" />
+          <Property Name="IdProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="55" FixedLength="false" Unicode="true" />
           <Property Name="Cost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="IdModel" Type="Int32" Nullable="false" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="IdColor" Type="Int32" />
+          <Property Name="IdSize" Type="Int32" />
+          <NavigationProperty Name="Color" Relationship="Model.FK_Product_Color" FromRole="Product" ToRole="Color" />
           <NavigationProperty Name="Model" Relationship="Model.FK_Product_Model" FromRole="Product" ToRole="Model" />
-          <NavigationProperty Name="Options" Relationship="Model.FK_Options_Product" FromRole="Product" ToRole="Options" />
+          <NavigationProperty Name="Size" Relationship="Model.FK_Product_Size" FromRole="Product" ToRole="Size" />
           <NavigationProperty Name="ProductOrder" Relationship="Model.FK_ProductOrder_Product" FromRole="Product" ToRole="ProductOrder" />
         </EntityType>
         <EntityType Name="ProductOrder">
@@ -581,9 +509,9 @@
           <Key>
             <PropertyRef Name="IdSize" />
           </Key>
-          <Property Name="IdSize" Type="Int32" Nullable="false" />
+          <Property Name="IdSize" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Options" Relationship="Model.FK_Options_Size" FromRole="Size" ToRole="Options" />
+          <NavigationProperty Name="Product" Relationship="Model.FK_Product_Size" FromRole="Size" ToRole="Product" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -627,7 +555,7 @@
               <PropertyRef Name="IdAccount" />
             </Principal>
             <Dependent Role="Employee">
-              <PropertyRef Name="IdAccount" />
+              <PropertyRef Name="FirstName" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -643,27 +571,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Options_Color">
-          <End Type="Model.Color" Role="Color" Multiplicity="1" />
-          <End Type="Model.Options" Role="Options" Multiplicity="*" />
+        <Association Name="FK_Product_Color">
+          <End Type="Model.Color" Role="Color" Multiplicity="0..1" />
+          <End Type="Model.Product" Role="Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Color">
               <PropertyRef Name="IdColor" />
             </Principal>
-            <Dependent Role="Options">
+            <Dependent Role="Product">
               <PropertyRef Name="IdColor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Employee_Position">
-          <End Type="Model.Position" Role="Position" Multiplicity="1" />
-          <End Type="Model.Employee" Role="Employee" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Position">
-              <PropertyRef Name="IdPosition" />
-            </Principal>
-            <Dependent Role="Employee">
-              <PropertyRef Name="IdPosition" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -691,30 +607,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Options_Product">
-          <End Type="Model.Product" Role="Product" Multiplicity="1" />
-          <End Type="Model.Options" Role="Options" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="IdProduct" />
-            </Principal>
-            <Dependent Role="Options">
-              <PropertyRef Name="IdProduct" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Options_Size">
-          <End Type="Model.Size" Role="Size" Multiplicity="1" />
-          <End Type="Model.Options" Role="Options" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Size">
-              <PropertyRef Name="IdSize" />
-            </Principal>
-            <Dependent Role="Options">
-              <PropertyRef Name="IdSize" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductOrder_Order">
           <End Type="Model.Order" Role="Order" Multiplicity="1" />
           <End Type="Model.ProductOrder" Role="ProductOrder" Multiplicity="*" />
@@ -724,6 +616,18 @@
             </Principal>
             <Dependent Role="ProductOrder">
               <PropertyRef Name="IdOrder" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Size">
+          <End Type="Model.Size" Role="Size" Multiplicity="0..1" />
+          <End Type="Model.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Size">
+              <PropertyRef Name="IdSize" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="IdSize" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -772,8 +676,6 @@
           <EntitySetMapping Name="Account">
             <EntityTypeMapping TypeName="Model.Account">
               <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="IdRole" ColumnName="IdRole" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -802,7 +704,12 @@
             <EntityTypeMapping TypeName="Model.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="IdAccount" ColumnName="IdAccount" />
-                <ScalarProperty Name="IdPosition" ColumnName="IdPosition" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="IdEmployee" ColumnName="IdEmployee" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -812,17 +719,6 @@
               <MappingFragment StoreEntitySet="Model">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IdModel" ColumnName="IdModel" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Options">
-            <EntityTypeMapping TypeName="Model.Options">
-              <MappingFragment StoreEntitySet="Options">
-                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
-                <ScalarProperty Name="IdModel" ColumnName="IdModel" />
-                <ScalarProperty Name="IdSize" ColumnName="IdSize" />
-                <ScalarProperty Name="IdColor" ColumnName="IdColor" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -836,17 +732,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Position">
-            <EntityTypeMapping TypeName="Model.Position">
-              <MappingFragment StoreEntitySet="Position">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="IdPosition" ColumnName="IdPosition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="Model.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="IdSize" ColumnName="IdSize" />
+                <ScalarProperty Name="IdColor" ColumnName="IdColor" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="IdModel" ColumnName="IdModel" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />

@@ -7,6 +7,74 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+
+        <Grid.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="LimeGreen"/>
+            <GradientStop Color="Aqua"
+                              Offset="1"/>
+        </LinearGradientBrush>
+        </Grid.Background>
+
+        <Image x:Name="under"
+               Height="305"
+               Source="/Res/1111.png"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Width="211"
+               Margin="-42,-25,0,0" Grid.RowSpan="2"/>
         
+        
+
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+            <TextBlock Text="Home"
+                       FontFamily="Ink Free"
+                       FontSize="30"
+                       HorizontalAlignment="Center" 
+                       FontWeight="Bold"/>
+
+            <Button x:Name="BtnEmployee"
+                    Content="Employee"
+                    FontFamily="Ink Free"                 
+                    Width="200"
+                    Height="40"
+                    FontSize="18"
+                    Margin="16" 
+                    FontWeight="Bold"
+                    Background="Aquamarine"/>
+
+            <Button x:Name="BtnClient"
+                    Content="Clients"
+                    FontFamily="Ink Free"
+                    Width="200"
+                    Height="40"
+                    FontSize="18"
+                    Margin="16" 
+                    FontWeight="Bold"
+                    Background="Aquamarine"/>
+
+            <Button x:Name="BtnPRoduct"
+                    Content="Products"
+                    FontFamily="Ink Free"
+                    Width="200"
+                    Height="40"
+                    FontSize="18"
+                    Margin="16"
+                    Click="BtnPRoduct_Click" 
+                    FontWeight="Bold"
+                    Background="Aquamarine"/>
+
+            <Button x:Name="BtnReports"
+                    Content="Reports"
+                    FontFamily="Ink Free"
+                    Width="200"
+                    Height="40"
+                    FontSize="18"
+                    Margin="16" 
+                    FontWeight="Bold"
+                    Background="Aquamarine"/>
+        </StackPanel>
     </Grid>
 </Window>

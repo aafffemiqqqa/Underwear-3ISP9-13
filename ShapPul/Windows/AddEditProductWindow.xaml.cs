@@ -35,6 +35,14 @@ namespace ShapPul.Windows
             CmbModel.ItemsSource = EFClass.Context.Model.ToList();
             CmbModel.DisplayMemberPath = "Name";
             CmbModel.SelectedIndex = 0;
+
+            CmbColor.ItemsSource = EFClass.Context.Color.ToList();
+            CmbColor.DisplayMemberPath = "Name";
+            CmbColor.SelectedIndex = 0;
+
+            CmbSize.ItemsSource = EFClass.Context.Size.ToList();
+            CmbSize.DisplayMemberPath = "Name";
+            CmbSize.SelectedIndex = 0;
         }
 
         public AddEditProductWindow(Product product)
@@ -45,9 +53,19 @@ namespace ShapPul.Windows
             CmbModel.DisplayMemberPath = "Name";
             CmbModel.SelectedIndex = 0;
 
+            CmbColor.ItemsSource = EFClass.Context.Color.ToList();
+            CmbColor.DisplayMemberPath = "Name";
+            CmbColor.SelectedIndex = 0;
+
+            CmbSize.ItemsSource = EFClass.Context.Size.ToList();
+            CmbSize.DisplayMemberPath = "Name";
+            CmbSize.SelectedIndex = 0;
+
             TbName.Text = product.Name;
             TbPrice.Text = product.Cost.ToString();
             CmbModel.SelectedItem = EFClass.Context.Model.ToList().Where(i => i.IdModel == product.IdModel).FirstOrDefault();
+            CmbSize.SelectedItem = EFClass.Context.Size.ToList().Where(i => i.IdSize == product.IdSize).FirstOrDefault();
+            CmbColor.SelectedItem = EFClass.Context.Color.ToList().Where(i => i.IdColor == product.IdColor).FirstOrDefault();
 
             if (product.Image != null)
             {
@@ -87,6 +105,8 @@ namespace ShapPul.Windows
                 editProduct.Name = TbName.Text;
                 editProduct.Cost = Convert.ToDecimal(TbPrice.Text);
                 editProduct.IdModel = (CmbModel.SelectedItem as Model).IdModel;
+                editProduct.IdSize = (CmbSize.SelectedItem as DB.Size).IdSize;
+                editProduct.IdColor = (CmbColor.SelectedItem as DB.Color).IdColor;
 
                 if (pathImageProduct != null)
                 {
@@ -104,6 +124,9 @@ namespace ShapPul.Windows
                 product.Name = TbName.Text;
                 product.Cost = Convert.ToDecimal(TbPrice.Text);
                 product.IdModel = (CmbModel.SelectedItem as Model).IdModel;
+                product.IdSize = (CmbSize.SelectedItem as DB.Size).IdSize;
+                product.IdColor = (CmbColor.SelectedItem as DB.Color).IdColor;
+
                 if (pathImageProduct != null)
                 {
                     product.Image = File.ReadAllBytes(pathImageProduct);

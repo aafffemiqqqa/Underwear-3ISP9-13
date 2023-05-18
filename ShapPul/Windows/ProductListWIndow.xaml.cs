@@ -60,5 +60,10 @@ namespace ShapPul.Windows
             GetListProduct();
 
         }
+
+        private void lvProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

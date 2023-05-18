@@ -1,0 +1,126 @@
+﻿<Window x:Class="ShapPul.Windows.CartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShapPul.Windows"
+        mc:Ignorable="d"
+        Title="CartWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="LimeGreen"/>
+                <GradientStop Color="Aqua"
+                              Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <Image x:Name="under"
+               Height="305"
+               Source="/Res/1111.png"
+               HorizontalAlignment="Left"
+               VerticalAlignment="Top"
+               Width="211"
+               Margin="-42,-25,0,0" Grid.RowSpan="2"/>
+
+        <TextBlock Text="Basket"
+                   FontFamily="Ink Free"                
+                   Width="120" 
+                   Height="50" 
+                   FontSize="40" 
+                   HorizontalAlignment="Center"/>
+
+        <Button x:Name="BtnGoToProduct"
+                Grid.Row="1"
+                Width="70"
+                Height="30"
+                HorizontalAlignment="Right"
+                Margin="0 0 20 0"
+                Background="{x:Null}"
+                BorderThickness="0"
+                Content="Back"
+                FontFamily="Ink Free" 
+                FontWeight="Bold">
+        </Button>
+
+        <ListView x:Name="LvCartProduct"
+                  Grid.Row="2"
+                  Margin="5" 
+                  d:ItemsSource="{d:SampleData ItemCount=15}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                  >
+
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <!-- Шаблон одного элемета -->
+
+                    <Border BorderBrush="Aquamarine"
+                            BorderThickness="2"
+                            Width="100"
+                            Height="180"
+                            Margin="5">
+                        <StackPanel>
+                            <Image Height="100"
+                                   Width="90">
+                                <Image.Source>
+                                    <Binding Path="ProductImage">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>/Res/1111.png</ImageSource>
+                                        </Binding.TargetNullValue>
+                                    </Binding>
+                                </Image.Source>
+                            </Image>
+                            <TextBlock Text="{Binding Name}"
+                                       Margin="5 0 0 0"/>
+                            <TextBlock Text="{Binding Price}"
+                                       FontWeight="Bold"
+                                       Margin="5 0 0 0"/>
+
+                            <WrapPanel HorizontalAlignment="Right">
+
+                                <Button x:Name="BtnRemoveProduct" 
+                                    Width="30"
+                                    Height="30"
+                                    Margin="15 0 0 0"
+                                    Background="{x:Null}"
+                                    BorderThickness="0"
+                                        >
+                                    <Image Source="/Res/icons8-remove-50.png"/>
+                                </Button>
+
+                            </WrapPanel>
+
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+
+        <Button x:Name="BtnBuy"
+                Grid.Row="3"
+                Content="Buy"
+                FontFamily="Ink Free"
+                Height="30"
+                Width="150"
+                HorizontalAlignment="Right"
+                FontSize="18"
+                Margin="0 0 10 0"
+                Background="Aquamarine"/>
+        
+    </Grid>
+</Window>

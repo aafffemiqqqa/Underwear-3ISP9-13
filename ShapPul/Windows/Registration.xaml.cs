@@ -61,8 +61,6 @@ namespace ShapPul.Windows
             {
                 Login = TbLog.Text,
                 Password = TbPsw.Password,
-                LastName = TbLN.Text,
-                FirstName = TbFN.Text,
                 IdRole = (CmbRole.SelectedItem as Role).IdRole
             });
 

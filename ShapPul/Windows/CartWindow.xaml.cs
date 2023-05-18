@@ -10,19 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ShapPul.Pages.Boss
+namespace ShapPul.Windows
 {
     /// <summary>
-    /// Логика взаимодействия для Employee.xaml
+    /// Логика взаимодействия для CartWindow.xaml
     /// </summary>
-    public partial class Employee : Page
+    public partial class CartWindow : Window
     {
-        public Employee()
+        public CartWindow()
         {
             InitializeComponent();
+            GetListProduct();
+        }
+
+        private void GetListProduct()
+        {
+            LvCartProduct.ItemsSource = ClassHelper.CartClass.products;
         }
     }
 }

@@ -39,11 +39,32 @@
                    HorizontalAlignment="Center"
                    FontFamily="Ink Free"/>
 
+        <WrapPanel Grid.Row="1" 
+                   HorizontalAlignment="Right">
+            <Button x:Name="BtnGoToCart"                
+                Width="30"
+                Height="30"
+                HorizontalAlignment="Right"
+                Margin="0 0 20 0"
+                Background="{x:Null}"
+                BorderThickness="0"
+                Click="BtnGoToCart_Click">
+                <Image Source="/Res/shopping-cart.png"/>
+            </Button>
+            
+            <TextBlock x:Name="TxtCartCount" 
+                       Text="0"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       FontSize="18"
+                       Margin="0 1 5 0"/>
+        </WrapPanel>
+
         <ListView x:Name="lvProduct"
                   Grid.Row="2"
-                  Margin="5"   
+                  Margin="5"       
                    d:ItemsSource="{d:SampleData ItemCount=15}"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="lvProduct_SelectionChanged">
 
 
             <ListView.ItemsPanel>
@@ -55,22 +76,58 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
 
-                    <Border BorderBrush="DarkGray"
+                    <Border BorderBrush="Aquamarine"
                             BorderThickness="2"
                             Width="100"
-                            Height="170"
+                            Height="230"
                             Margin="5">
+                        
                         <StackPanel>
                             <Image Height="100"
                                    Width="90">
                                 <Image.Source>
                                     <Binding Path="Image">
                                         <Binding.TargetNullValue>
-                                            <ImageSource>/res/111.webp</ImageSource>
+                                            <ImageSource>/res/1111.png</ImageSource>
                                         </Binding.TargetNullValue>
                                     </Binding>
                                 </Image.Source>
                             </Image>
+                            
+                            <TextBlock x:Name="Name"                                      
+                                       Margin="20 5 10 0"
+                                       Text="{Binding Name}" FontWeight="Bold">
+                            </TextBlock>
+                            
+                            <TextBlock x:Name="Price"                 
+                                       Margin="20 0 10 0"
+                                       Text="{Binding Cost}" FontStyle="Normal">
+                            </TextBlock>
+
+                            <TextBlock x:Name="Model"
+                                       Margin="20 0 10 0"
+                                       Text="{Binding Model.Name}" FontStyle="Italic" TextDecorations="Underline">
+                            </TextBlock>
+
+                            <TextBlock x:Name="Color"
+                                       Margin="20 0 10 0"
+                                       Text="{Binding Color.Name}">
+                            </TextBlock>
+
+                            <TextBlock x:Name="Size"
+                                       Margin="20 0 10 0"
+                                       Text="{Binding Size.Name}">
+                            </TextBlock>
+                            
+                            
+
+                            <Button x:Name="BtnMore" 
+                                    Content="Edit product"
+                                    Background="Aquamarine"
+                                    FontFamily="Ink Free"
+                                    Margin="10 10 10 0"
+                                    Click="BtnMore_Click"/>
+                            
                         </StackPanel>
                         
                     </Border>

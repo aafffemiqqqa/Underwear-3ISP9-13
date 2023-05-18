@@ -21,11 +21,15 @@ namespace ShapPul.DB
         }
     
         public int IdEmployee { get; set; }
-        public int IdPosition { get; set; }
+        public string LastName { get; set; }
+        public int FirstName { get; set; }
+        public string Patronymic { get; set; }
+        public int IdRole { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
         public int IdAccount { get; set; }
     
         public virtual Account Account { get; set; }
-        public virtual Position Position { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
     }

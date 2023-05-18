@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ClothingStore.ClassHelper;
+using ShapPul.ClassHelper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,19 +27,68 @@ namespace ShapPul.Windows
             InitializeComponent();
         }
 
-        private void Btn_Enter_Click(object sender, RoutedEventArgs e)
+        private void BtnSignIn_Click(object sender, RoutedEventArgs e)
         {
+            // поиск пользователя
             var userAuth = Context.Account.ToList()
                 .Where(i => i.Login == TbLog.Text && i.Password == TbPsw.Text)
                 .FirstOrDefault();
+
+            // проверка на работника
             if (userAuth != null)
             {
-                MessageBox.Show("ОК");
+                // сохранияем данные входа
+                UserDataClass.User = userAuth;
+
+                var emplAuth = Context.Employee.Where(i => i.IdAccount == userAuth.IdAccount).FirstOrDefault();
+
+                if (emplAuth != null)
+                {
+                    // если не пустой то Работник
+
+                    // сохранияем данные входа
+
+                    UserDataClass.Employee = emplAuth;
+
+                    // проверка роли 
+
+                    switch (emplAuth.IdRole)
+                    {
+                        case 1:
+                            // переход на страницу директора
+                            MainWindow mainWindow = new MainWindow();
+                            mainWindow.Show();
+                            this.Close();
+                            break;
+
+                        case 2:
+                            // переход на страницу администратора
+                            break;
+                        case 3:
+                            // переход на страницу продавца
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+                else
+                {
+                    ProductListWindow productListWindow = new ProductListWindow();
+                    productListWindow.Show();
+                    this.Close();
+                }
             }
             else
             {
                 MessageBox.Show("Пользователь не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+        }
+
+        private void Btn_Reg_Click(object sender, RoutedEventArgs e)
+        {
+            ClassHelper.Navigate.navFrame.Navigate(new Check());
         }
     }
 }

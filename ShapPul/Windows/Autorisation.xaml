@@ -81,7 +81,26 @@
                     Margin="10 150 0 20"
                     RenderTransformOrigin="0.515,1.675"
                     FontFamily="SimSun-ExtB" 
-                    Background="Aquamarine" FontSize="18" Click="Btn_Enter_Click"             
+                    Background="Aquamarine" FontSize="18" Click="BtnSignIn_Click"             
+            />
+
+            <Button x:Name="Btn_Reg"
+                    Content="Register"
+                    Height="20"
+                    Width="120"
+                    Margin="80 100 70 -5"
+                    FontFamily="SimSun-ExtB" 
+                    Background="Aquamarine"
+                    FontSize="12" 
+                    Click="Btn_Reg_Click"
+            />
+
+            <TextBlock
+                Text="Don't have an account?"
+                HorizontalAlignment="Center"
+                FontSize="12"
+                FontFamily="SimSun-ExtB"
+                Margin="-35 -35 -40 50"
             />
         </StackPanel>
     </Grid>

@@ -23,6 +23,14 @@ namespace ShapPul
         public MainWindow()
         {
             InitializeComponent();
+
+        }
+
+        private void BtnPRoduct_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.ProductListWindow productListWindow = new Windows.ProductListWindow();
+            productListWindow.Show();
+            this.Close();
         }
     }
 }
